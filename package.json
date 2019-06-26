@@ -1,8 +1,8 @@
 {
-  "name": "node12-template-action",
-  "version": "0.0.0",
+  "name": "setup-ruby",
+  "version": "0.0.1",
   "private": true,
-  "description": "Node 12 template action",
+  "description": "setup ruby action",
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
@@ -12,11 +12,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/start-vm-action.git"
+    "url": "git+https://github.com/actions/setup-ruby.git"
   },
   "keywords": [
     "actions",
-    "node",
+    "ruby",
     "setup"
   ],
   "author": "GitHub",

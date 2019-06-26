@@ -1,3 +1,9 @@
-# Node 12 Template Action
+# @actions/setup-go
 
-To get started, click the `Use this template` button on this repository [which will create a new repository based on this template](https://github.blog/2019-06-06-generate-new-repositories-with-repository-templates/).
+# License
+
+The scripts and documentation in this project are released under the [MIT License](LICENSE)
+
+# Contributions
+
+Contributions are welcome!  See [Contributor's Guide](docs/contributors.md)

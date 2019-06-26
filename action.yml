@@ -1,10 +1,10 @@
-name: 'Node 12 Template Action'
-description: 'Get started with Node actions'
+name: 'Setup Ruby for use with actions'
+description: 'Setup a Ruby environment and add it to the PATH'
 author: 'GitHub'
 inputs: 
-  myInput:
-    description: 'Input to use'
-    default: 'world'
+  version:
+    description: 'The Ruby version to use. Defaults to >= 2.4'
+    default: '>= 2.4'
 runs:
   using: 'node'
   main: 'lib/main.js'
