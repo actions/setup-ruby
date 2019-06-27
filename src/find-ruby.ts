@@ -1,3 +1,4 @@
+import * as core from '@actions/core';
 import * as exec from '@actions/exec';
 import * as tc from '@actions/tool-cache';
 import * as path from 'path';
@@ -20,4 +21,6 @@ export default async function(version: string) {
     const dest: string = '/usr/bin/ruby';
     exec.exec('sudo ln', ['-sf', path.join(toolPath, 'ruby'), dest]); // replace any existing
   }
+
+  core.addPath(toolPath);
 }
