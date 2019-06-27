@@ -1,8 +1,13 @@
 import * as core from '@actions/core';
+import findRubyVersion from './find-ruby';
 
 async function run() {
-  const myInput = core.getInput('myInput');
-  core.debug(`Hello ${myInput}`);
+  try {
+    const version = core.getInput('version');
+    await findRubyVersion(version);
+  } catch (error) {
+    core.setFailed(error.message);
+  }
 }
 
 run();
