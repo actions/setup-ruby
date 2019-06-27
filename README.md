@@ -1,4 +1,4 @@
-# @actions/setup-go
+# @actions/setup-ruby
 
 # License
 
