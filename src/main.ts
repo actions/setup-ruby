@@ -1,11 +1,10 @@
 import * as core from '@actions/core';
-import findRubyVersion, {getPlatform} from './find-ruby';
+import findRubyVersion from './find-ruby';
 
 async function run() {
   try {
     const version = core.getInput('version');
-    const addToPath = core.getInput('add-to-path');
-    await findRubyVersion({version, addToPath}, getPlatform());
+    await findRubyVersion(version);
   } catch (error) {
     core.setFailed(error.message);
   }

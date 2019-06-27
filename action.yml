@@ -5,9 +5,6 @@ inputs:
   version:
     description: 'Version range or exact version of a Ruby version to use.'
     default: '>= 2.4'
-  add-to-path:
-    description: 'Prepend the retrieved Ruby version to the PATH environment variable to make it available in subsequent actions or scripts without using the output variable.'
-    default: 'true'
 
 runs:
   using: 'node'
