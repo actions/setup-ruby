@@ -9,9 +9,6 @@ inputs:
     description: 'Prepend the retrieved Ruby version to the PATH environment variable to make it available in subsequent actions or scripts without using the output variable.'
     default: 'true'
 
-outputs:
-  ruby-location:
-    description: "The resolved folder of the Ruby distribution."
 runs:
   using: 'node'
   main: 'lib/main.js'

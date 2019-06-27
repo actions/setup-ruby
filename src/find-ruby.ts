@@ -45,8 +45,6 @@ export default async function(inputs: ActionInputs, platform: Platform) {
     exec.exec('sudo ln', ['-sf', path.join(toolPath, 'ruby'), dest]); // replace any existing
   }
 
-  //core.setOutput('ruby-location', toolPath);
-
   if (inputs.addToPath === 'true') {
     core.addPath(toolPath);
   }
