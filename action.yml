@@ -7,5 +7,5 @@ inputs:
     default: '>= 2.4'
 
 runs:
-  using: 'node'
+  using: 'node12'
   main: 'lib/main.js'
