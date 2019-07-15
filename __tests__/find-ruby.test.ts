@@ -9,7 +9,7 @@ const tempDir = path.join(__dirname, 'runner', 'temp');
 process.env['RUNNER_TOOLSDIRECTORY'] = toolDir;
 process.env['RUNNER_TEMPDIRECTORY'] = tempDir;
 
-import findRubyVersion from '../src/find-ruby';
+import findRubyVersion from '../src/installer';
 
 describe('find-ruby', () => {
   beforeAll(async () => {
