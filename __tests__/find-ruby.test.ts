@@ -69,6 +69,7 @@ describe('find-ruby', () => {
     fs.writeFileSync(`${rubyDir}.complete`, 'hello');
     await findRubyVersion('2.4.6');
     const binDir = path.join(rubyDir, 'bin');
+    console.log(`binDir: ${binDir}`);
     console.log(`PATH: ${process.env['PATH']}`);
     expect(process.env['PATH']!.startsWith(`${binDir};`)).toBe(true);
   });
