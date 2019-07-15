@@ -3,26 +3,8 @@ import fs = require('fs');
 import os = require('os');
 import path = require('path');
 
-const toolDir = path.join(
-  process.cwd(),
-  'runner',
-  path.join(
-    Math.random()
-      .toString(36)
-      .substring(7)
-  ),
-  'tools'
-);
-const tempDir = path.join(
-  process.cwd(),
-  'runner',
-  path.join(
-    Math.random()
-      .toString(36)
-      .substring(7)
-  ),
-  'temp'
-);
+const toolDir = path.join(__dirname, 'runner', 'tools');
+const tempDir = path.join(__dirname, 'runner', 'temp');
 
 process.env['AGENT_TOOLSDIRECTORY'] = toolDir;
 process.env['RUNNER_TOOLSDIRECTORY'] = toolDir;
