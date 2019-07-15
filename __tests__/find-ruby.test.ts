@@ -71,6 +71,6 @@ describe('find-ruby', () => {
     const binDir = path.join(rubyDir, 'bin');
     console.log(`binDir: ${binDir}`);
     console.log(`PATH: ${process.env['PATH']}`);
-    expect(process.env['PATH']!.startsWith(`${binDir};`)).toBe(true);
+    expect(process.env['PATH']!.startsWith(`${binDir}`)).toBe(true);
   });
 });
