@@ -6,10 +6,11 @@ import path = require('path');
 const toolDir = path.join(__dirname, 'runner', 'tools');
 const tempDir = path.join(__dirname, 'runner', 'temp');
 
+process.env['AGENT_TOOLSDIRECTORY'] = toolDir;
 process.env['RUNNER_TOOLSDIRECTORY'] = toolDir;
 process.env['RUNNER_TEMPDIRECTORY'] = tempDir;
 
-import findRubyVersion from '../src/find-ruby';
+import {findRubyVersion} from '../src/installer';
 
 describe('find-ruby', () => {
   beforeAll(async () => {
@@ -26,22 +27,18 @@ describe('find-ruby', () => {
     }
   }, 100000);
 
+  it('Uses version of ruby installed in cache', async () => {
+    const rubyDir: string = path.join(toolDir, 'Ruby', '17.0.0', os.arch());
+    await io.mkdirP(rubyDir);
+    fs.writeFileSync(`${rubyDir}.complete`, 'hello');
+    // This will throw if it doesn't find it in the cache (because no such version exists)
+    await findRubyVersion('17.0.0');
+  });
+
   it('findRubyVersion throws if cannot find any version of ruby', async () => {
     let thrown = false;
     try {
-      await findRubyVersion('>= 2.4');
-    } catch {
-      thrown = true;
-    }
-    expect(thrown).toBe(true);
-  });
-
-  it('findRubyVersion throws version of ruby is not complete', async () => {
-    let thrown = false;
-    const rubyDir: string = path.join(toolDir, 'Ruby', '2.4.6', os.arch());
-    await io.mkdirP(rubyDir);
-    try {
-      await findRubyVersion('>= 2.4');
+      await findRubyVersion('9.9.9');
     } catch {
       thrown = true;
     }
@@ -52,8 +49,10 @@ describe('find-ruby', () => {
     const rubyDir: string = path.join(toolDir, 'Ruby', '2.4.6', os.arch());
     await io.mkdirP(rubyDir);
     fs.writeFileSync(`${rubyDir}.complete`, 'hello');
-    await findRubyVersion('>= 2.4');
+    await findRubyVersion('2.4.6');
     const binDir = path.join(rubyDir, 'bin');
-    expect(process.env['PATH']!.startsWith(`${binDir};`)).toBe(true);
+    console.log(`binDir: ${binDir}`);
+    console.log(`PATH: ${process.env['PATH']}`);
+    expect(process.env['PATH']!.startsWith(`${binDir}`)).toBe(true);
   });
 });
