@@ -5,7 +5,7 @@ import * as path from 'path';
 
 const IS_WINDOWS = process.platform === 'win32';
 
-export default async function(version: string) {
+export async function findRubyVersion(version: string) {
   const installDir: string | null = tc.find('Ruby', version);
 
   if (!installDir) {

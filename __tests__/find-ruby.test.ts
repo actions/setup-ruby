@@ -9,7 +9,7 @@ const tempDir = path.join(__dirname, 'runner', 'temp');
 process.env['RUNNER_TOOLSDIRECTORY'] = toolDir;
 process.env['RUNNER_TEMPDIRECTORY'] = tempDir;
 
-import findRubyVersion from '../src/installer';
+import {findRubyVersion} from '../src/installer';
 
 describe('find-ruby', () => {
   beforeAll(async () => {
@@ -29,7 +29,7 @@ describe('find-ruby', () => {
   it('findRubyVersion throws if cannot find any version of ruby', async () => {
     let thrown = false;
     try {
-      await findRubyVersion('>= 2.4');
+      await findRubyVersion('2.4.6');
     } catch {
       thrown = true;
     }
@@ -41,7 +41,7 @@ describe('find-ruby', () => {
     const rubyDir: string = path.join(toolDir, 'Ruby', '2.4.6', os.arch());
     await io.mkdirP(rubyDir);
     try {
-      await findRubyVersion('>= 2.4');
+      await findRubyVersion('2.4.6');
     } catch {
       thrown = true;
     }
@@ -52,7 +52,7 @@ describe('find-ruby', () => {
     const rubyDir: string = path.join(toolDir, 'Ruby', '2.4.6', os.arch());
     await io.mkdirP(rubyDir);
     fs.writeFileSync(`${rubyDir}.complete`, 'hello');
-    await findRubyVersion('>= 2.4');
+    await findRubyVersion('2.4.6');
     const binDir = path.join(rubyDir, 'bin');
     expect(process.env['PATH']!.startsWith(`${binDir};`)).toBe(true);
   });

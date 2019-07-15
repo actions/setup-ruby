@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import findRubyVersion from './installer';
+import {findRubyVersion} from './installer';
 
 async function run() {
   try {
