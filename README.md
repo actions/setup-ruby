@@ -12,6 +12,7 @@ See [action.yml](action.yml)
 Basic:
 ```yaml
 actions:
+- uses: actions/checkout@latest
 - uses: actions/setup-ruby@latest
   with:
     version: 2.x // Version range or exact version of a Ruby version to use, using semvers version range syntax.
@@ -27,6 +28,7 @@ jobs:
         ruby: [ 2.x, 3.x ]
     name: Ruby ${{ matrix.ruby }} sample
     actions:
+      - uses: actions/checkout@latest
       - name: Setup ruby
         uses: actions/setup-ruby@latest
         with:
