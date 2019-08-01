@@ -15,7 +15,7 @@ steps:
 - uses: actions/checkout@master
 - uses: actions/setup-ruby@v1
   with:
-    version: 2.x // Version range or exact version of a Ruby version to use, using semvers version range syntax.
+    version: '2.x' // Version range or exact version of a Ruby version to use, using semvers version range syntax.
 - run: ruby hello.rb
 ```
 
@@ -23,9 +23,10 @@ Matrix Testing:
 ```yaml
 jobs:
   build:
+    runs-on: ubuntu-16.04
     strategy:
       matrix:
-        ruby: [ 2.x, 3.x ]
+        ruby: [ '2.x', '3.x' ]
     name: Ruby ${{ matrix.ruby }} sample
     steps:
       - uses: actions/checkout@master
@@ -33,7 +34,7 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           version: ${{ matrix.ruby }}
-          architecture: x64
+          architecture: 'x64'
       - run: ruby hello.rb
 ```
 
