@@ -1,4 +1,4 @@
-name: 'Setup Ruby for use with actions'
+name: 'Setup Ruby environment'
 description: 'Setup a Ruby environment and add it to the PATH'
 author: 'GitHub'
 inputs: 
