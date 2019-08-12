@@ -1,5 +1,9 @@
 # setup-ruby
 
+<p align="left">
+  <a href="https://github.com/actions/setup-ruby"><img alt="GitHub Actions status" src="https://github.com/actions/setup-ruby/workflows/Main%20workflow/badge.svg"></a>
+</p>
+
 This action sets up a ruby environment for use in actions by:
 
 - optionally installing a version of ruby and adding to PATH. Note that this action only uses versions of Ruby already installed in the cache. The action will fail if no matching versions are found.
