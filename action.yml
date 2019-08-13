@@ -2,10 +2,12 @@ name: 'Setup Ruby environment'
 description: 'Setup a Ruby environment and add it to the PATH'
 author: 'GitHub'
 inputs: 
-  version:
+  ruby-version:
     description: 'Version range or exact version of a Ruby version to use.'
     default: '>= 2.4'
-
+# Deprecated option, do not use. Will not be supported after October 1, 2019
+  version:
+    description: 'Deprecated. Use ruby-version instead. Will not be supported after October 1, 2019'
 runs:
   using: 'node12'
   main: 'lib/setup-ruby.js'

@@ -3,7 +3,10 @@ import {findRubyVersion} from './installer';
 
 async function run() {
   try {
-    const version = core.getInput('version');
+    let version = core.getInput('version');
+    if (!version) {
+      version = core.getInput('ruby-version');
+    }
     await findRubyVersion(version);
   } catch (error) {
     core.setFailed(error.message);
