@@ -19,7 +19,7 @@ steps:
 - uses: actions/checkout@master
 - uses: actions/setup-ruby@v1
   with:
-    ruby-version: '2.x' // Version range or exact version of a Ruby version to use, using semvers version range syntax.
+    ruby-version: '2.x' # Version range or exact version of a Ruby version to use, using semvers version range syntax.
 - run: ruby hello.rb
 ```
 
