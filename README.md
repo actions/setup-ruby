@@ -19,7 +19,7 @@ steps:
 - uses: actions/checkout@master
 - uses: actions/setup-ruby@v1
   with:
-    ruby-version: '2.x' # Version range or exact version of a Ruby version to use, using semvers version range syntax.
+    ruby-version: '2.6.x' # Version range or exact version of a Ruby version to use, using semvers version range syntax.
 - run: ruby hello.rb
 ```
 
@@ -30,15 +30,13 @@ jobs:
     runs-on: ubuntu-16.04
     strategy:
       matrix:
-        ruby: [ '2.x', '3.x' ]
+        ruby: [ '2.5.x', '2.6.x' ]
     name: Ruby ${{ matrix.ruby }} sample
     steps:
       - uses: actions/checkout@master
-      - name: Setup ruby
-        uses: actions/setup-ruby@v1
+      - uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          architecture: 'x64'
       - run: ruby hello.rb
 ```
 
