@@ -13,8 +13,7 @@ export async function installXcode(
 
   if (
     (await exec.exec('xcversion', ['select', version], {
-      ignoreReturnCode: true,
-      silent: true
+      ignoreReturnCode: true
     })) != 0
   ) {
     if (!appleID) {
