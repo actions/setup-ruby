@@ -1,5 +1,8 @@
 name: 'Setup Xcode'
 description: 'Set up a specific version of Xcode and selecting it'
+branding:
+  icon: 'feather'
+  color: 'orange'
 author: 'Jaehong Kang'
 inputs: 
   xcode-version:
