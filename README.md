@@ -17,12 +17,12 @@ Basic:
 ```yaml
 steps:
 - uses: actions/checkout@master
-- uses: sinoru/actions-setup-xcode@master
+- uses: sinoru/actions-setup-xcode@v1.1
   with:
     xcode-version: '11.2.1' # Exact version of a Xcode version to use
     apple-id: 'bot@sinoru.io' # Apple ID to download from Apple Developer when Xcode not available in local
     apple-id-password: ${{ secrets.APPLE_ID_PASSWORD }}
-- run: xcodebuild -h
+- run: fastlane scan
 ```
 
 # License
