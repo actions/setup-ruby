@@ -27,13 +27,12 @@ export async function installXcode(
       throw new Error(`apple-id-password is required to download Xcode.`);
     }
 
-    await exec.exec('xcversion', ['install', version, '--verbose'], {
+    await exec.exec('xcversion', ['install', version], {
       env: {
+        ...process.env,
         XCODE_INSTALL_USER: appleID,
         XCODE_INSTALL_PASSWORD: appleIDPassword
-      },
-      outStream: process.stdout,
-      errStream: process.stderr
+      }
     });
 
     await exec.exec('xcversion', ['select', version]);
