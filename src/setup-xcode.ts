@@ -5,7 +5,7 @@ async function run() {
   try {
     let xcodeVersion = core.getInput('xcode-version');
     let appleID = core.getInput('apple-id');
-    let appleIDPassword = core.getInput('apple-password');
+    let appleIDPassword = core.getInput('apple-id-password');
 
     await installXcode(xcodeVersion, appleID, appleIDPassword);
   } catch (error) {
