@@ -12,7 +12,7 @@ export async function installXcode(
   }
 
   if (
-    (await exec.exec(`xcversion select ${version}`, undefined, {
+    (await exec.exec('xcversion', ['select', version], {
       ignoreReturnCode: true,
       silent: true
     })) != 0
@@ -25,14 +25,14 @@ export async function installXcode(
       throw new Error(`apple-id-password is required to download Xcode.`);
     }
 
-    await exec.exec(`xcversion install ${version}`, undefined, {
+    await exec.exec('xcversion', ['install', version], {
       env: {
         XCODE_INSTALL_USER: appleID,
         XCODE_INSTALL_PASSWORD: appleIDPassword
       }
     });
 
-    await exec.exec(`xcversion select ${version}`);
+    await exec.exec('xcversion', ['select', version]);
   }
 
   await exec.exec(`sudo xcodebuild -license accept`);
