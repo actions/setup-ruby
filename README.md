@@ -1,7 +1,7 @@
-# setup-ruby
+# actions-setup-xcode
 
 <p align="left">
-  <a href="https://github.com/actions/setup-ruby"><img alt="GitHub Actions status" src="https://github.com/actions/setup-ruby/workflows/Main%20workflow/badge.svg"></a>
+  <a href="https://github.com/sinoru/actions-setup-xcode"><img alt="GitHub Actions status" src="https://github.com/sinoru/actions-setup-xcode/workflows/Main%20workflow/badge.svg"></a>
 </p>
 
 This action sets up a ruby environment for use in actions by:
@@ -17,29 +17,12 @@ Basic:
 ```yaml
 steps:
 - uses: actions/checkout@master
-- uses: actions/setup-ruby@v1
+- uses: sinoru/actions-setup-xcode@master
   with:
-    ruby-version: '2.x' # Version range or exact version of a Ruby version to use, using semvers version range syntax.
-- run: ruby hello.rb
-```
-
-Matrix Testing:
-```yaml
-jobs:
-  build:
-    runs-on: ubuntu-16.04
-    strategy:
-      matrix:
-        ruby: [ '2.x', '3.x' ]
-    name: Ruby ${{ matrix.ruby }} sample
-    steps:
-      - uses: actions/checkout@master
-      - name: Setup ruby
-        uses: actions/setup-ruby@v1
-        with:
-          ruby-version: ${{ matrix.ruby }}
-          architecture: 'x64'
-      - run: ruby hello.rb
+    xcode-version: '11.2.1' # Exact version of a Xcode version to use
+    apple-id: 'bot@sinoru.io' # Apple ID to download from Apple Developer when Xcode not avilable in local
+    apple-id-password: ${{ secrets.APPLE_ID_PASSWORD }}
+- run: xcodebuild -h
 ```
 
 # License
