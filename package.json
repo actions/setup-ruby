@@ -1,9 +1,9 @@
 {
-  "name": "setup-ruby",
+  "name": "setup-xcode",
   "version": "1.0.0",
   "private": true,
-  "description": "setup ruby action",
-  "main": "lib/setup-ruby.js",
+  "description": "setup xcode action",
+  "main": "lib/setup-xcode.js",
   "scripts": {
     "build": "tsc",
     "format": "prettier --write **/*.ts",
@@ -12,31 +12,31 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/setup-ruby.git"
+    "url": "git+https://github.com/sinoru/actions-setup-xcode.git"
   },
   "keywords": [
     "actions",
-    "ruby",
+    "xcode",
     "setup"
   ],
   "author": "GitHub",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.0.0",
-    "@actions/tool-cache": "^1.0.0",
+    "@actions/core": "^1.2.0",
+    "@actions/exec": "^1.0.0",
     "semver": "^6.1.1"
   },
   "devDependencies": {
-    "@actions/io": "^1.0.0",
-    "@types/jest": "^24.0.13",
-    "@types/node": "^12.0.4",
-    "@types/semver": "^6.0.0",
+    "@actions/io": "^1.0.1",
+    "@types/jest": "^24.0.23",
+    "@types/node": "^12.12.12",
+    "@types/semver": "^6.2.0",
     "husky": "^2.3.0",
-    "jest": "^24.8.0",
-    "jest-circus": "^24.7.1",
-    "prettier": "^1.17.1",
-    "ts-jest": "^24.0.2",
-    "typescript": "^3.5.1"
+    "jest": "^24.9.0",
+    "jest-circus": "^24.9.0",
+    "prettier": "^1.19.1",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.2"
   },
   "husky": {
     "skipCI": true,
