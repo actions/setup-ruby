@@ -1,26 +1,59 @@
-import * as core from '@actions/core';
 import * as exec from '@actions/exec';
-import * as tc from '@actions/tool-cache';
-import * as path from 'path';
 
-const IS_WINDOWS = process.platform === 'win32';
+const IS_MACOS = process.platform === 'darwin';
 
-export async function findRubyVersion(version: string) {
-  const installDir: string | null = tc.find('Ruby', version);
-
-  if (!installDir) {
-    throw new Error(`Version ${version} not found`);
+export async function installXcode(version: string, appleID: string | null, appleIDPassword: string | null) {
+  if (!IS_MACOS) {
+    throw new Error(`${process.platform} is not supported!`);
   }
 
-  const toolPath: string = path.join(installDir, 'bin');
+  if (await exec.exec(`xcversion select ${version}`) != 0) {
+    if (!appleID) {
+      throw new Error(`apple-id is required to download Xcode.`);
+    }
+    
+    if (!appleIDPassword) {
+      throw new Error(`apple-id-password is required to download Xcode.`);
+    }
 
-  if (!IS_WINDOWS) {
-    // Ruby / Gem heavily use the '#!/usr/bin/ruby' to find ruby, so this task needs to
-    // replace that version of ruby so all the correct version of ruby gets selected
-    // replace the default
-    const dest: string = '/usr/bin/ruby';
-    exec.exec('sudo ln', ['-sf', path.join(toolPath, 'ruby'), dest]); // replace any existing
+    let output = '';
+    let resultCode = 0;
+
+    resultCode = await exec.exec(`xcversion install ${version}`, undefined, {
+      env: {
+        'XCODE_INSTALL_USER': appleID,
+        'XCODE_INSTALL_PASSWORD': appleIDPassword,
+      },
+      listeners: {
+        stdout: (data: Buffer) => {
+          output += data.toString();
+        }
+      }
+    });
+    if (resultCode != 0) {
+      throw `Failed to detect os with result code ${resultCode}. Output: ${output}`;
+    }
+
+    resultCode = await exec.exec(`xcversion select ${version}`, undefined, {
+      listeners: {
+        stdout: (data: Buffer) => {
+          output += data.toString();
+        }
+      }
+    })
+    if (resultCode != 0) {
+      throw `Failed to detect os with result code ${resultCode}. Output: ${output}`;
+    }
+
+    resultCode = await exec.exec(`sudo xcodebuild -license accept`, undefined, {
+      listeners: {
+        stdout: (data: Buffer) => {
+          output += data.toString();
+        }
+      }
+    })
+    if (resultCode != 0) {
+      throw `Failed to detect os with result code ${resultCode}. Output: ${output}`;
+    }
   }
-
-  core.addPath(toolPath);
 }
