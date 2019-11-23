@@ -10,7 +10,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Setup Xcode
-      uses: sinoru/actions-setup-xcode@master
+      uses: ./
       with:
         xcode-version: 10.0
         apple-id: bot@sinoru.io
