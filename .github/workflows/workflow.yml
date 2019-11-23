@@ -1,0 +1,18 @@
+name: Main workflow
+on: [push]
+jobs:
+  run:
+    name: Run
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [macOS-latest]
+        xcode-version: ["10.0", "11.0", "11.2.1"]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup Xcode
+      uses: ./
+      with:
+        xcode-version: ${{ matrix.xcode-version }}
+        apple-id: bot@sinoru.io
+        apple-id-password: ${{ secrets.APPLE_ID_PASSWORD }}
