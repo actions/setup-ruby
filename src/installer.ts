@@ -28,7 +28,7 @@ export async function installXcode(
     }
 
     await exec.exec('xcversion', ['install', version], {
-      cwd: process.cwd(),
+      cwd: process.env.PWD,
       env: {
         ...process.env,
         XCODE_INSTALL_USER: appleID,
