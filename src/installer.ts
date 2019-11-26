@@ -29,7 +29,7 @@ export async function installXcode(
 
     await exec.exec('xcversion', ['install', version], {
       env: {
-        PATH: process.env.PATH || '',
+        ...process.env,
         XCODE_INSTALL_USER: appleID,
         XCODE_INSTALL_PASSWORD: appleIDPassword
       }
