@@ -83,6 +83,10 @@ jobs:
         bundle exec rails test
 ```
 
+# Caching Dependencies
+
+See [actions/cache](https://github.com/actions/cache) and the [Ruby Gem cache example](https://github.com/actions/cache/blob/master/examples.md#ruby---gem).
+
 # License
 
 The scripts and documentation in this project are released under the [MIT License](LICENSE)
