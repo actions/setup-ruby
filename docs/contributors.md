@@ -2,6 +2,8 @@
 
 ### Changes
 
+The process is consistent for internal and external contributions.  The only difference is external contributions PRs come from a fork.
+
 For trivial bug fixes, create an issue to discuss and then a PR can follow referencing the issue.
 
 For enhancements and new features, create an enhancment issue for discuss followed by a [design proposal known as an ADR](https://github.com/actions/setup-ruby/blob/adrs/adrs/README.md).  This allows everyone to get to consensus before coding and also serves as a record going forward.
