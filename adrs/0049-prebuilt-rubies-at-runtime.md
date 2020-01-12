@@ -31,9 +31,23 @@ NOTE: The prebuilt rubies offered will only be supported for use by GitHub Actio
 
 The scripts and tooling to build the Rubies will be at `actions/build-ruby` and it will be consumed by the existing action `actions/setup-ruby`.  Since the capabilities are additive, there's no need to create a `v2`.  There is no compat break.
 
-A specific version of a Ruby will be offered as an individual immutable build-ruby repo release similar to how the [actions runner exposes versions](https://github.com/actions/runner/releases/tag/v2.164.0) where each version offers n platforms.  This is also similar to [Travis individual versions](http://rubies.travis-ci.org/ubuntu/18.04/s390x/ruby-2.6.5).
+A specific version of a Ruby will be offered as an individual semi-immutable build-ruby repo release similar to how the [actions runner exposes versions](https://github.com/actions/runner/releases/tag/v2.164.0) where each version offers n platforms.  This is also similar to [Travis individual versions](http://rubies.travis-ci.org/ubuntu/18.04/s390x/ruby-2.6.5).
+
+NOTE: semi-immutable means it's desirable to be immutable but it's possible to patch.  Note that 
+
+Option 1: GitHub GPR Universal Package
+
+The `actions/build-ruby` repo offers packages for [example](https://github.com/actions/setup-ruby/packages). 
+
+Option 2: GitHub Release
+
+The `actions/build-ruby` repo offers releases for [example](https://github.com/actions/runner/releases/tag/v2.164.0)
 
 NOTE: release assets are backed by a CDN
+
+Offering each version as an individual package / release offers queryable APIs and the ability to convey whether pre-release or not by version using the packaging and release features.
+
+This is fairly straight forward to come up with a scheme to complete automate with a workflow.
 
 ### Setup action
 
