@@ -25,5 +25,5 @@ jobs:
       with:
         ruby-version: ${{ matrix.version}}
 
-    - name: npm install
+    - name: ruby version
       run: ruby -v
