@@ -1,5 +1,13 @@
-name: Main workflow
-on: [push]
+name: build-test
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
 jobs:
   run:
     name: Run
@@ -11,10 +19,10 @@ jobs:
     - name: Checkout
       uses: actions/checkout@master
 
-    - name: Set Node.js 10.x
+    - name: Set Node.js 12.x
       uses: actions/setup-node@master
       with:
-        version: 10.x
+        version: 12.x
 
     - name: npm install
       run: npm install
