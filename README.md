@@ -4,10 +4,9 @@
   <a href="https://github.com/actions/setup-ruby"><img alt="GitHub Actions status" src="https://github.com/actions/setup-ruby/workflows/Main%20workflow/badge.svg"></a>
 </p>
 
-This action sets up a ruby environment for use in actions by:
+This action sets up a ruby environment for versions which are installed on the [Actions Virtual Environments](https://github.com/actions/virtual-environments).  Because virtual environments are updated, a workflow should only be bound to a minor versions.  
 
-- optionally installing a version of ruby and adding to PATH. Note that this action only uses versions of Ruby already installed in the cache. The action will fail if no matching versions are found.
-- registering problem matchers for error output
+> Only supports `2.4.x`, `2.5.x`, and `2.6.x`.  
 
 # Usage
 
