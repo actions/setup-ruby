@@ -14,6 +14,9 @@ Note that a `ruby-version:` of `2.6` or `2.6.x` are equivalent.
 
 > Supports `2.4`, `2.5`, `2.6`, and `2.7`.
 
+If you want to use exact versions (e.g., `2.6.5`) of Ruby, or to use JRuby or TruffleRuby,
+please take a look at [other actions on the marketplace](https://github.com/marketplace?utf8=%E2%9C%93&type=actions&query=Setup+Ruby).
+
 # Usage
 
 See [action.yml](action.yml)
