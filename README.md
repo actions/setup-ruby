@@ -6,9 +6,13 @@
   <a href="https://github.com/actions/setup-ruby/actions"><img alt="versions status" src="https://github.com/actions/setup-ruby/workflows/ruby-versions/badge.svg"></a>  
 </p>
 
-This action sets up a ruby environment for versions which are installed on the [Actions Virtual Environments](https://github.com/actions/virtual-environments).  Because virtual environments are updated, a workflow should only be bound to a minor versions.  
+This action sets up a ruby environment for versions which are installed on the [Actions Virtual Environments](https://github.com/actions/virtual-environments).
 
-> Only supports `2.4.x`, `2.5.x`, and `2.6.x`.  
+Virtual environments contain only one Ruby version within a 'major.minor' release, and are updated with new releases.  Hence, a workflow should only be bound to minor versions.
+
+Note that a `ruby-version:` of `2.6` or `2.6.x` are equivalent.
+
+> Supports `2.4`, `2.5`, `2.6`, and `2.7`.
 
 # Usage
 
@@ -20,7 +24,7 @@ steps:
 - uses: actions/checkout@master
 - uses: actions/setup-ruby@v1
   with:
-    ruby-version: '2.6.x' # Version range or exact version of a Ruby version to use, using semvers version range syntax.
+    ruby-version: '2.6' # Version range or exact version of a Ruby version to use, using semvers version range syntax.
 - run: ruby hello.rb
 ```
 
@@ -31,7 +35,7 @@ jobs:
     runs-on: ubuntu-16.04
     strategy:
       matrix:
-        ruby: [ '2.5.x', '2.6.x' ]
+        ruby: [ '2.5', '2.6' ]
     name: Ruby ${{ matrix.ruby }} sample
     steps:
       - uses: actions/checkout@master
@@ -67,7 +71,7 @@ jobs:
     - name: Set up Ruby 2.6
       uses: actions/setup-ruby@v1
       with:
-        ruby-version: 2.6.x
+        ruby-version: 2.6
     - name: Build and test with Rake
       env:
         PGHOST: 127.0.0.1
