@@ -35,6 +35,22 @@ describe('find-ruby', () => {
     await findRubyVersion('17.0.0');
   });
 
+  it('Uses 9.0.x version of ruby installed in cache ', async () => {
+    const rubyDir: string = path.join(toolDir, 'Ruby', '9.0.1', os.arch());
+    await io.mkdirP(rubyDir);
+    fs.writeFileSync(`${rubyDir}.complete`, 'hello');
+    // This will throw if it doesn't find it in the cache (because no such version exists)
+    await findRubyVersion('9.0.x');
+  });
+
+  it('Uses 9.0 version of ruby installed in cache ', async () => {
+    const rubyDir: string = path.join(toolDir, 'Ruby', '9.0.1', os.arch());
+    await io.mkdirP(rubyDir);
+    fs.writeFileSync(`${rubyDir}.complete`, 'hello');
+    // This will throw if it doesn't find it in the cache (because no such version exists)
+    await findRubyVersion('9.0');
+  });
+
   it('findRubyVersion throws if cannot find any version of ruby', async () => {
     let thrown = false;
     try {
