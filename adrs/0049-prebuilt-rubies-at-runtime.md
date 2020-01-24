@@ -3,43 +3,78 @@
 ***Status***: proposed
 
 ## Context
-Currently, only two versions of Ruby are available at runtime as part of the hosted build VM tools cache.  The setup-ruby action only supports using what's in the cache and does not support pulling other versions at runtime.  It also doesn't support pulling other versions like JRuby at runtime.
+Currently, only a few versions of Ruby are available at runtime prebuilt by the [virtual-environment images](https://github.com/actions/virtual-environments) as part of the hosted build VM tools cache.  The setup-ruby action only supports using what's in the cache and does not support acquiring other versions at runtime. 
+
+This introduces two problems:
+
+  1.  New version latency: When new versions are released, they are not available for use until a new image is released.
+  2.  Versions can be removed.  The current image policy is latest of each minor version.  Even if that is increased to n - 1, [builds that were working can break](https://github.com/actions/virtual-environments/issues/281).  And since images roll through scale units with the readme only being updated once it's everywhere, it's hard to plan for the change and react.
 
 This is in contrast to other setup actions like setup-node where the cache is an optimization but supports pulling any version by a specified semver at runtime.
+
+Ruby officially only supports source code distribution.  There are no "official" pre built distributions since there are system and environmental dependencies.
 
 ## Goals
 
 - Offer as many versions as possible by platforms
 - Offer popular Ruby variants like JRuby
 - Consistent with other setup-xxx actions patterns and Actions workflows.
+- Ideally works across all supported scenarios including self-hosted runners.
+- Ideally works on all the supported runner platforms (windows, mac-os, all linux variants)
+- Ideally works with actions container scenarios
 
-## Decisions
+## Options
 
-### Prebuilt Rubies
+### Download Prebuilt Rubies on Misses
 
 Other tools like offer a [distribution](https://nodejs.org/dist/) which offers a [queryable endpoint](https://nodejs.org/dist/index.json) which allows the desired version [by a version spec which is semver](https://github.com/actions/setup-node#setup-node).
 
 Other CI services like Travis support pulling a wide variety of [ruby versions offered here](http://rubies.travis-ci.org/).
 
-Requirements:
-- Offer prebuilt Ruby, JRuby, TruffleRuby versions 
-- Setup-Ruby exposes `ruby-version` which accepts a semver
-- Rubies are discoverable and queryable by the Setup-Ruby action.
-- Initially offer for all platforms offered by the hosted Actions VMs (Ubuntu 18, Mac 10.15 and Windows 2019)
-
 NOTE: The prebuilt rubies offered will only be supported for use by GitHub Actions.
 
 The scripts and tooling to build the Rubies will be at `actions/build-ruby` and it will be consumed by the existing action `actions/setup-ruby`.  Since the capabilities are additive, there's no need to create a `v2`.  There is no compat break.
 
-A specific version of a Ruby will be offered as an individual semi-immutable build-ruby repo release similar to how the [actions runner exposes versions](https://github.com/actions/runner/releases/tag/v2.164.0) where each version offers n platforms.  This is also similar to [Travis individual versions](http://rubies.travis-ci.org/ubuntu/18.04/s390x/ruby-2.6.5).
+A specific version of a Ruby will be offered as an individual build-ruby repo release similar to how the [actions runner exposes versions](https://github.com/actions/runner/releases/tag/v2.164.0) where each version offers n platforms.  This is also similar to [Travis individual versions](http://rubies.travis-ci.org/ubuntu/18.04/s390x/ruby-2.6.5).
 
-NOTE: semi-immutable means it's desirable to be immutable but it's possible to patch.  Note that 
+**Pros**
 
-Option 1: GitHub GPR Universal Package
+On a toolkit cache miss, the first build is slower but not that slow since it's pre-built.
+
+**Cons**
+
+Will not work with self-hosted scenarios
+Will not work across all platforms the runner supports
+Will not work across various container scenarios
+Only supported on hosted VMs 
+
+### Build and Cache Misses at Runtime
+
+[rbenv/ruby-build](https://github.com/rbenv/ruby-build) offers a convenient way to build at runtime.
+
+Build on cache miss of an exact version.  Offer an option to cache using the upcoming [toolkit cache lib](https://github.com/actions/toolkit).  There are plans to factor out the caching logic in the [actions/cache](https://github.com/actions/cache) so other actions can take advantage of caching services.
+
+**Pros**
+
+Aligns well with the only supported Ruby distribution ... source code.
+Works on self-hosted, 
+
+**Cons**
+
+The first build on a miss will be slower but will not fail.
+Ingress / Egress costs for storage
+
+## Prebuilt Implementation Details 
+
+Option 1: Download Virtual Environment Prebuilt Rubies
+
+The virtual-environments team is working on opening the tool cache prebuilt versions for download.  This is the best download option since it would be the exact same binaries on a cache miss after a version is removed from the images.
+
+Option 2: GitHub GPR Universal Package
 
 The `actions/build-ruby` repo offers packages for [example](https://github.com/actions/setup-ruby/packages). 
 
-Option 2: GitHub Release
+Option 3: GitHub Release
 
 The `actions/build-ruby` repo offers releases for [example](https://github.com/actions/runner/releases/tag/v2.164.0)
 
