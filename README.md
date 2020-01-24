@@ -21,7 +21,7 @@ See [action.yml](action.yml)
 Basic:
 ```yaml
 steps:
-- uses: actions/checkout@master
+- uses: actions/checkout@v2
 - uses: actions/setup-ruby@v1
   with:
     ruby-version: '2.6' # Version range or exact version of a Ruby version to use, using semvers version range syntax.
@@ -38,7 +38,7 @@ jobs:
         ruby: [ '2.5', '2.6' ]
     name: Ruby ${{ matrix.ruby }} sample
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
@@ -67,7 +67,7 @@ jobs:
           --health-retries 5
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Set up Ruby 2.6
       uses: actions/setup-ruby@v1
       with:
