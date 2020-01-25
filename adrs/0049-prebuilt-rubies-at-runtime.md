@@ -19,9 +19,11 @@ Ruby officially only supports source code distribution.  There are no "official"
 - Offer as many versions as possible by platforms
 - Offer popular Ruby variants like JRuby
 - Consistent with other setup-xxx actions patterns and Actions workflows.
-- Ideally works across all supported scenarios including self-hosted runners.
-- Ideally works on all the supported runner platforms (windows, mac-os, all linux variants)
+- Ideally works across all supported scenarios including self-hosted runners (currently not supported).
+- Ideally works on all the supported runner platforms (windows, mac-os, all linux variants, ARM, etc)
 - Ideally works with actions container scenarios
+
+Note, this is initially scoped to Ruby.  After solving the initial problem, we can potentially consider other Ruby variants.
 
 ## Options
 
@@ -48,21 +50,23 @@ Will not work across all platforms the runner supports
 Will not work across various container scenarios
 Only supported on hosted VMs 
 
-### Build and Cache Misses at Runtime
+### Build and Optionally Cache Misses at Runtime
 
 [rbenv/ruby-build](https://github.com/rbenv/ruby-build) offers a convenient way to build at runtime.
 
-Build on cache miss of an exact version.  Offer an option to cache using the upcoming [toolkit cache lib](https://github.com/actions/toolkit).  There are plans to factor out the caching logic in the [actions/cache](https://github.com/actions/cache) so other actions can take advantage of caching services.
+Build on cache miss of an exact version.  
+
+Self-hosted runners automatically benefit from the `~/.rbenv` version cache since they persist from job to job.  So, there is no reason to upload and cache the built Ruby.  For hosted and exact versions, we could offer an option to cache using the upcoming [toolkit cache lib](https://github.com/actions/toolkit).  There are plans to factor out the caching logic in the [actions/cache](https://github.com/actions/cache) so other actions can take advantage of caching services.
 
 **Pros**
 
 Aligns well with the only supported Ruby distribution ... source code.
-Works on self-hosted, 
+Works on self-hosted. 
 
 **Cons**
 
 The first build on a miss will be slower but will not fail.
-Ingress / Egress costs for storage
+Ingress / Egress costs for storage only on exact version cache misses on hosted (self-hosted will not cache)
 
 ## Prebuilt Implementation Details 
 
