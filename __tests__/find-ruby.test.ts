@@ -3,15 +3,15 @@ import * as core from '@actions/core';
 import fs = require('fs');
 import os = require('os');
 import path = require('path');
-import cache = require('../src/cache');
-import setup = require('../src/setup-ruby');
+import * as cache from '../src/cache';
+import {run} from '../src/main';
 
 describe('find-ruby', () => {
   let inSpy: jest.SpyInstance;
   let tcSpy: jest.SpyInstance;
   let cnSpy: jest.SpyInstance;
 
-  beforeAll(async () => {});
+  //beforeAll(async () => {});
 
   beforeEach(() => {
     tcSpy = jest.spyOn(tc, 'find');
@@ -29,7 +29,7 @@ describe('find-ruby', () => {
     jest.clearAllMocks();
   });
 
-  afterAll(async () => {}, 100000);
+  //afterAll(async () => {}, 100000);
 
   it('finds a version of ruby already in the cache', async () => {
     tcSpy.mockImplementation(() => '/cache/ruby/2.7.0');
@@ -48,7 +48,7 @@ describe('find-ruby', () => {
   it('finds a version in the cache and adds it to the path', async () => {
     inSpy.mockImplementation(() => '2.7.0');
     tcSpy.mockImplementation(() => '/cache/ruby/2.7.0');
-    await setup.run();
+    await run();
     expect(cnSpy).toHaveBeenCalledWith(
       normalize('::add-path::/cache/ruby/2.7.0/bin\n')
     );

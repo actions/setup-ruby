@@ -1242,6 +1242,57 @@ exports.debug = debug; // for test
 
 /***/ }),
 
+/***/ 198:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const core = __importStar(__webpack_require__(470));
+const cache = __importStar(__webpack_require__(365));
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            let versionSpec = core.getInput('ruby-version');
+            if (!versionSpec) {
+                // deprecated
+                versionSpec = core.getInput('version');
+            }
+            // check in the VMs cache first
+            let toolPath = yield cache.find(versionSpec);
+            // TODO: download JIT and/or ruby-build
+            if (!toolPath) {
+                core.setFailed(`Version ${versionSpec} not found`);
+                return;
+            }
+            core.addPath(toolPath);
+        }
+        catch (error) {
+            // unhandled
+            core.setFailed(error.message);
+        }
+    });
+}
+exports.run = run;
+
+
+/***/ }),
+
 /***/ 211:
 /***/ (function(module) {
 
@@ -2899,49 +2950,9 @@ exports.find = find;
 
 "use strict";
 
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
-    result["default"] = mod;
-    return result;
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const core = __importStar(__webpack_require__(470));
-const cache = __importStar(__webpack_require__(365));
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            let versionSpec = core.getInput('ruby-version');
-            if (!versionSpec) {
-                // deprecated
-                versionSpec = core.getInput('version');
-            }
-            // check in the VMs cache first
-            let toolPath = yield cache.find(versionSpec);
-            // TODO: download JIT and/or ruby-build
-            if (!toolPath) {
-                core.setFailed(`Version ${versionSpec} not found`);
-                return;
-            }
-            core.addPath(toolPath);
-        }
-        catch (error) {
-            // unhandled
-            core.setFailed(error.message);
-        }
-    });
-}
-exports.run = run;
-run();
+const main_1 = __webpack_require__(198);
+main_1.run();
 
 
 /***/ }),
