@@ -22,7 +22,7 @@ jobs:
     - name: Set Node.js 12.x
       uses: actions/setup-node@master
       with:
-        version: 12.x
+        node-version: 12.x
 
     - name: npm install
       run: npm install
