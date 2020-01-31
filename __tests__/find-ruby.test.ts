@@ -32,10 +32,12 @@ describe('find-ruby', () => {
   afterAll(async () => {}, 100000);
 
   it('finds a version of ruby already in the cache', async () => {
-    tcSpy.mockImplementation(() => '/cache/ruby/2.7.0');
+    let toolPath = path.normalize('/cache/ruby/2.7.0/x64');
+    tcSpy.mockImplementation(() => toolPath);
 
     let cacheDir: string = await cache.find('2.7.0');
-    expect(cacheDir).toBe(fixPaths('/cache/ruby/2.7.0/bin'));
+    let expPath = path.join(toolPath, 'bin');
+    expect(cacheDir).toBe(expPath);
   });
 
   it('does not find a version of ruby not in the cache', async () => {
@@ -46,21 +48,22 @@ describe('find-ruby', () => {
   });
 
   it('finds a version in the cache and adds it to the path', async () => {
+    let toolPath = path.normalize('/cache/ruby/2.7.0/x64');
     inSpy.mockImplementation(() => '2.7.0');
-    tcSpy.mockImplementation(() => '/cache/ruby/2.7.0');
+    tcSpy.mockImplementation(() => toolPath);
     await run();
-    expect(cnSpy).toHaveBeenCalledWith(
-      fixPaths('::add-path::/cache/ruby/2.7.0/bin\n')
-    );
+
+    let expPath = path.join(toolPath, 'bin');
+    expect(cnSpy).toHaveBeenCalledWith(`::add-path::${expPath}${os.EOL}`);
+  });
+
+  it('handles unhandled error and reports error', async () => {
+    let errMsg = 'unhandled error message';
+    inSpy.mockImplementation(() => '2.7.0');
+    tcSpy.mockImplementation(() => {
+      throw new Error(errMsg);
+    });
+    await run();
+    expect(cnSpy).toHaveBeenCalledWith('::error::' + errMsg + os.EOL);
   });
 });
-
-function fixPaths(pathToFix: string) {
-  let p = path.normalize(pathToFix);
-
-  if (os.platform() === 'win32') {
-    p = p.replace(/\n/g, '\r\n');
-  }
-
-  return p;
-}
