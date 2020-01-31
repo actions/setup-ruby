@@ -1,74 +1,62 @@
-import * as io from '@actions/io';
+import * as tc from '@actions/tool-cache';
+import * as core from '@actions/core';
 import fs = require('fs');
 import os = require('os');
 import path = require('path');
-
-const toolDir = path.join(__dirname, 'runner', 'tools');
-const tempDir = path.join(__dirname, 'runner', 'temp');
-
-process.env['AGENT_TOOLSDIRECTORY'] = toolDir;
-process.env['RUNNER_TOOL_CACHE'] = toolDir;
-process.env['RUNNER_TEMP'] = tempDir;
-
-import {findRubyVersion} from '../src/installer';
+import cache = require('../src/cache');
+import setup = require('../src/setup-ruby');
 
 describe('find-ruby', () => {
+  let inSpy: jest.SpyInstance;
+  let tcSpy: jest.SpyInstance;
+  let cnSpy: jest.SpyInstance;
+  let output: string = '';
+
   beforeAll(async () => {
-    await io.rmRF(toolDir);
-    await io.rmRF(tempDir);
+
+  });
+
+  beforeEach(() => {
+    tcSpy = jest.spyOn(tc, 'find');
+    inSpy = jest.spyOn(core, 'getInput');
+    cnSpy = jest.spyOn(process.stdout, 'write');
+    cnSpy.mockImplementation(() => {
+      // uncomment to debug
+      // process.stderr.write('write:' + line + '\n');
+    })
+  });
+
+  afterEach(() => {
+    tcSpy.mockClear();
+    cnSpy.mockClear();
+    jest.clearAllMocks();
+    console.error("==== output ====");
+    console.error(output);
   });
 
   afterAll(async () => {
-    try {
-      await io.rmRF(toolDir);
-      await io.rmRF(tempDir);
-    } catch {
-      console.log('Failed to remove test directories');
-    }
+
   }, 100000);
 
-  it('Uses version of ruby installed in cache', async () => {
-    const rubyDir: string = path.join(toolDir, 'Ruby', '17.0.0', os.arch());
-    await io.mkdirP(rubyDir);
-    fs.writeFileSync(`${rubyDir}.complete`, 'hello');
-    // This will throw if it doesn't find it in the cache (because no such version exists)
-    await findRubyVersion('17.0.0');
+  it('finds a version of ruby already in the cache', async () => {
+    tcSpy.mockImplementation(() => '/cache/ruby/2.7.0');
+
+    let cacheDir: string = await cache.find('2.7.0');
+    expect(cacheDir).toBe('/cache/ruby/2.7.0/bin');
+    expect(cnSpy).toHaveBeenCalledWith('::add-path::/cache/ruby/2.7.0/bin\n');
   });
 
-  it('Uses 9.0.x version of ruby installed in cache ', async () => {
-    const rubyDir: string = path.join(toolDir, 'Ruby', '9.0.1', os.arch());
-    await io.mkdirP(rubyDir);
-    fs.writeFileSync(`${rubyDir}.complete`, 'hello');
-    // This will throw if it doesn't find it in the cache (because no such version exists)
-    await findRubyVersion('9.0.x');
-  });
+  it('does not find a version of ruby not in the cache', async () => {
+    tcSpy.mockImplementation(() => '');
 
-  it('Uses 9.0 version of ruby installed in cache ', async () => {
-    const rubyDir: string = path.join(toolDir, 'Ruby', '9.0.1', os.arch());
-    await io.mkdirP(rubyDir);
-    fs.writeFileSync(`${rubyDir}.complete`, 'hello');
-    // This will throw if it doesn't find it in the cache (because no such version exists)
-    await findRubyVersion('9.0');
-  });
+    let cacheDir: string = await cache.find('2.9.9');
+    expect(cacheDir).toBeFalsy();
+  });  
 
-  it('findRubyVersion throws if cannot find any version of ruby', async () => {
-    let thrown = false;
-    try {
-      await findRubyVersion('9.9.9');
-    } catch {
-      thrown = true;
-    }
-    expect(thrown).toBe(true);
-  });
-
-  it('findRubyVersion adds ruby bin to PATH', async () => {
-    const rubyDir: string = path.join(toolDir, 'Ruby', '2.4.6', os.arch());
-    await io.mkdirP(rubyDir);
-    fs.writeFileSync(`${rubyDir}.complete`, 'hello');
-    await findRubyVersion('2.4.6');
-    const binDir = path.join(rubyDir, 'bin');
-    console.log(`binDir: ${binDir}`);
-    console.log(`PATH: ${process.env['PATH']}`);
-    expect(process.env['PATH']!.startsWith(`${binDir}`)).toBe(true);
+  it('finds a version in the cache and adds it to the path', async () => {
+    inSpy.mockImplementation(() => '2.7.0');
+    tcSpy.mockImplementation(() => '/cache/ruby/2.7.0');
+    setup.run();
+    expect(cnSpy).toHaveBeenCalledWith('::add-path::/cache/ruby/2.7.0/bin\n');
   });
 });
