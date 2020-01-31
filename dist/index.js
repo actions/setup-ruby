@@ -2880,16 +2880,12 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const core = __importStar(__webpack_require__(470));
 const tc = __importStar(__webpack_require__(533));
 const path = __importStar(__webpack_require__(622));
 function find(version) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log(version);
         const installDir = tc.find('Ruby', version);
-        console.log(installDir);
         let toolPath = installDir ? path.join(installDir, 'bin') : '';
-        core.addPath(toolPath);
         return toolPath;
     });
 }

@@ -22,8 +22,7 @@ export async function run() {
     }
 
     core.addPath(toolPath);
-  } 
-  catch (error) {
+  } catch (error) {
     // unhandled
     core.setFailed(error.message);
   }
