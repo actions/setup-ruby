@@ -35,7 +35,7 @@ describe('find-ruby', () => {
     tcSpy.mockImplementation(() => '/cache/ruby/2.7.0');
 
     let cacheDir: string = await cache.find('2.7.0');
-    expect(cacheDir).toBe('/cache/ruby/2.7.0/bin');
+    expect(cacheDir).toBe(normalize('/cache/ruby/2.7.0/bin'));
   });
 
   it('does not find a version of ruby not in the cache', async () => {
@@ -49,6 +49,13 @@ describe('find-ruby', () => {
     inSpy.mockImplementation(() => '2.7.0');
     tcSpy.mockImplementation(() => '/cache/ruby/2.7.0');
     await setup.run();
-    expect(cnSpy).toHaveBeenCalledWith('::add-path::/cache/ruby/2.7.0/bin\n');
+    expect(cnSpy).toHaveBeenCalledWith(normalize('::add-path::/cache/ruby/2.7.0/bin\n'));
   });
 });
+
+function normalize(pathToFix: string) {
+  return pathToFix.replace(/\\/g, "/");
+
+  // win might need this as well
+  // pathToFix.replace(/\r/g, "\r\n");
+}
