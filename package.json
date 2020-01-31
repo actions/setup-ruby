@@ -8,7 +8,8 @@
     "build": "tsc && ncc build",
     "format": "prettier --write **/*.ts",
     "format-check": "prettier --check **/*.ts",
-    "test": "jest"
+    "test": "jest",
+    "pre-checkin": "npm run format && npm run build && npm test"
   },
   "repository": {
     "type": "git",
