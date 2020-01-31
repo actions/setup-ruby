@@ -1268,10 +1268,10 @@ const cache = __importStar(__webpack_require__(365));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            let versionSpec = core.getInput('ruby-version');
+            let versionSpec = core.getInput('ruby-version', { required: true });
             if (!versionSpec) {
                 // deprecated
-                versionSpec = core.getInput('version', { required: true });
+                versionSpec = core.getInput('version');
             }
             // check in the VMs cache first
             let toolPath = yield cache.find(versionSpec);

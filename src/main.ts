@@ -1,14 +1,12 @@
 import * as core from '@actions/core';
-import * as tc from '@actions/tool-cache';
-import * as path from 'path';
 import * as cache from './cache';
 
 export async function run() {
   try {
-    let versionSpec = core.getInput('ruby-version');
+    let versionSpec = core.getInput('ruby-version', {required: true});
     if (!versionSpec) {
       // deprecated
-      versionSpec = core.getInput('version', {required: true});
+      versionSpec = core.getInput('version');
     }
 
     // check in the VMs cache first
