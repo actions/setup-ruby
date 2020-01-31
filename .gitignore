@@ -1,4 +1,3 @@
-# Explicitly not ignoring node_modules so that they are included in package downloaded by runner
 node_modules/
 lib
 

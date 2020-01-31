@@ -1271,7 +1271,7 @@ function run() {
             let versionSpec = core.getInput('ruby-version');
             if (!versionSpec) {
                 // deprecated
-                versionSpec = core.getInput('version');
+                versionSpec = core.getInput('version', { required: true });
             }
             // check in the VMs cache first
             let toolPath = yield cache.find(versionSpec);

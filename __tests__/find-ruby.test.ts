@@ -11,7 +11,7 @@ describe('find-ruby', () => {
   let tcSpy: jest.SpyInstance;
   let cnSpy: jest.SpyInstance;
 
-  //beforeAll(async () => {});
+  beforeAll(async () => {});
 
   beforeEach(() => {
     tcSpy = jest.spyOn(tc, 'find');
@@ -29,7 +29,7 @@ describe('find-ruby', () => {
     jest.clearAllMocks();
   });
 
-  //afterAll(async () => {}, 100000);
+  afterAll(async () => {}, 100000);
 
   it('finds a version of ruby already in the cache', async () => {
     tcSpy.mockImplementation(() => '/cache/ruby/2.7.0');
@@ -56,10 +56,10 @@ describe('find-ruby', () => {
 });
 
 function normalize(pathToFix: string) {
-  let p = pathToFix;
+  let p = path.normalize(pathToFix);
 
   if (os.platform() === 'win32') {
-    p = p.replace(/\//g, '\\');
+    // p = p.replace(/\//g, '\\');
     p = p.replace(/\n/g, '\r\n');
   }
 
