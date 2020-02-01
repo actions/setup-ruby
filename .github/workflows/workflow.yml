@@ -35,4 +35,4 @@ jobs:
 
     - name: audit tools
       run: npm audit --audit-level=moderate
-      if: matrix.runs-on == 'ubuntu-latest'    
+      if: matrix.operating-system == 'ubuntu-latest'    
