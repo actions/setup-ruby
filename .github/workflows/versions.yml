@@ -1,13 +1,15 @@
 name: ruby-versions
 on:
-    push:
-      branches:
-        - master
-      paths-ignore:
-        - '**.md'
-    pull_request:
-      paths-ignore:
-        - '**.md'
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+  schedule:
+    - cron: '0 7 * * SUN'
 jobs:
   run:
     name: Ruby
