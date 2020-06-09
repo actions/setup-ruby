@@ -25,7 +25,7 @@ jobs:
           - operating-system: ubuntu-20.04
             version: 2.5.x
           - operating-system: ubuntu-20.04
-            version: 2.6.x
+            version: 2.6
     steps:
     - name: Checkout
       uses: actions/checkout@v2
