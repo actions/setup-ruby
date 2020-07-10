@@ -1,0 +1,31 @@
+name: xcode-versions
+on:
+    push:
+      branches:
+        - master
+      paths-ignore:
+        - '**.md'
+    pull_request:
+      paths-ignore:
+        - '**.md'
+jobs:
+  run:
+    name: Xcode 
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        operating-system: [ macos-latest]
+        xcode-version: ["10.0", "10.1", "10.2.1", "10.3", "11.0", "11.1", "11.2.1"]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: use-xcode ${{ matrix.xcode-version }}
+      uses: ./
+      with:
+        xcode-version: ${{ matrix.xcode-version }}
+        apple-id: bot@sinoru.io
+        apple-id-password: ${{ secrets.APPLE_ID_PASSWORD }}
+
+    - name: xcode version
+      run: xcodebuild -version
