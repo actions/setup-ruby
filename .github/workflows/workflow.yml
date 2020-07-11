@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
-        operating-system: [ubuntu-latest, windows-latest]
+        operating-system: [macos-latest]
     steps:
     - name: Checkout
       uses: actions/checkout@master
@@ -35,4 +35,4 @@ jobs:
 
     - name: audit packages
       run: npm audit --audit-level=moderate
-      if: matrix.operating-system == 'ubuntu-latest'
+      if: matrix.operating-system == 'macos-latest'
