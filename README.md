@@ -58,6 +58,11 @@ jobs:
 
     services:
       db:
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+          POSTGRES_PASSWORD: super_secret_password
+          # POSTGRES_HOST_AUTH_METHOD: trust # disables POSTGRES_PASSWORD and allows all local connections. Use with caution
         image: postgres:11
         ports: ['5432:5432']
         options: >-
