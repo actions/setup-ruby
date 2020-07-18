@@ -88,7 +88,7 @@ jobs:
 
 # Caching Dependencies
 
-See [actions/cache](https://github.com/actions/cache) and the [Ruby Gem cache example](https://github.com/actions/cache/blob/master/examples.md#ruby---gem).
+See [actions/cache](https://github.com/actions/cache) and the [Ruby Gem cache example](https://github.com/actions/cache/blob/master/examples.md#ruby---bundler).
 
 # License
 
