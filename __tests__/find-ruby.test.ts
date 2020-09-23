@@ -11,7 +11,9 @@ describe('find-ruby', () => {
   let tcSpy: jest.SpyInstance;
   let cnSpy: jest.SpyInstance;
 
-  beforeAll(async () => {});
+  beforeAll(async () => {
+    process.env['GITHUB_PATH'] = '';
+  });
 
   beforeEach(() => {
     tcSpy = jest.spyOn(tc, 'find');
