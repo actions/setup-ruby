@@ -12,7 +12,8 @@ describe('find-ruby', () => {
   let cnSpy: jest.SpyInstance;
 
   beforeAll(async () => {
-    process.env['GITHUB_PATH'] = '';
+    process.env['GITHUB_PATH'] = ''; // Stub out ENV file functionality so we can verify it writes to standard out
+    console.log("::stop-commands::stoptoken"); // Disable executing of runner commands when running tests in actions
   });
 
   beforeEach(() => {
@@ -31,7 +32,9 @@ describe('find-ruby', () => {
     jest.clearAllMocks();
   });
 
-  afterAll(async () => {}, 100000);
+  afterAll(async () => {
+    console.log("::stoptoken::"); // Re-enable executing of runner commands when running tests in actions
+  }, 100000);
 
   it('finds a version of ruby already in the cache', async () => {
     let toolPath = path.normalize('/cache/ruby/2.7.0/x64');
