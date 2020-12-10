@@ -8,13 +8,16 @@ on:
   pull_request:
     paths-ignore:
       - '**.md'
+  schedule:
+    - cron: '0 7 * * SUN'
 jobs:
   run:
     name: Run
     runs-on: ${{ matrix.operating-system }}
     strategy:
+      fail-fast: false
       matrix:
-        operating-system: [ubuntu-latest, windows-latest]
+        operating-system: [ubuntu-16.04, ubuntu-18.04, ubuntu-20.04, windows-2016, windows-2019, macos-10.15]
     steps:
     - name: Checkout
       uses: actions/checkout@master
@@ -35,4 +38,4 @@ jobs:
 
     - name: audit packages
       run: npm audit --audit-level=moderate
-      if: matrix.operating-system == 'ubuntu-latest'    
+      if: startsWith(matrix.operating-system, 'ubuntu')
