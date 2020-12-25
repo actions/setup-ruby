@@ -10,12 +10,12 @@ on:
         - '**.md'
 jobs:
   run:
-    name: Ruby 
+    name: Ruby
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
         operating-system: [ubuntu-latest, windows-latest, macos-latest]
-        version: [2.4, 2.5.x, 2.6, 2.7.x]
+        version: [2.4, 2.5.x, 2.6, 2.7.x, 3.0]
     steps:
     - name: Checkout
       uses: actions/checkout@v2
