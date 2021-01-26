@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-16.04
     strategy:
       matrix:
-        ruby: [ '2.5', '2.6' ]
+        ruby_version: [ '2.5', '2.6' ]
     name: Ruby ${{ matrix.ruby }} sample
     steps:
       - uses: actions/checkout@v2
