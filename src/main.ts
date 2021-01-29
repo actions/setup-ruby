@@ -3,6 +3,7 @@ import * as cache from './cache';
 
 export async function run() {
   try {
+    core.info('Please note: this action is deprecated and will not be maintained in future by GitHub engineers. Please, migrate to https://github.com/ruby/setup-ruby from official Ruby community.');
     let versionSpec = core.getInput('ruby-version', {required: true});
     if (!versionSpec) {
       // deprecated
