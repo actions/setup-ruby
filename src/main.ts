@@ -4,8 +4,12 @@ import * as cache from './cache';
 export async function run() {
   try {
     core.info('------------------------');
-    core.info('NOTE: this action is deprecated and will not be maintained in future by GitHub engineers.');
-    core.info('Please, migrate to https://github.com/ruby/setup-ruby from official Ruby community.');
+    core.info(
+      'NOTE: this action is deprecated and will not be maintained in future by GitHub engineers.'
+    );
+    core.info(
+      'Please, migrate to https://github.com/ruby/setup-ruby from official Ruby community.'
+    );
     core.info('------------------------');
 
     let versionSpec = core.getInput('ruby-version', {required: true});
