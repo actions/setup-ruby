@@ -4,11 +4,9 @@ import * as cache from './cache';
 export async function run() {
   try {
     core.info('------------------------');
+    core.info('NOTE: This action is deprecated and is no longer maintained.');
     core.info(
-      'NOTE: this action is deprecated and will not be maintained in future by GitHub engineers.'
-    );
-    core.info(
-      'Please, migrate to https://github.com/ruby/setup-ruby from official Ruby community.'
+      'Please, migrate to https://github.com/ruby/setup-ruby action, which is being actively maintained.'
     );
     core.info('------------------------');
 

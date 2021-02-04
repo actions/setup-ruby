@@ -1331,8 +1331,8 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             core.info('------------------------');
-            core.info('NOTE: this action is deprecated and will not be maintained in future by GitHub engineers.');
-            core.info('Please, migrate to https://github.com/ruby/setup-ruby from official Ruby community.');
+            core.info('NOTE: This action is deprecated and is no longer maintained.');
+            core.info('Please, migrate to https://github.com/ruby/setup-ruby action, which is being actively maintained.');
             core.info('------------------------');
             let versionSpec = core.getInput('ruby-version', { required: true });
             if (!versionSpec) {
