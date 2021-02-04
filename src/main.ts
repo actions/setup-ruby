@@ -6,7 +6,7 @@ export async function run() {
     core.info('------------------------');
     core.info('NOTE: This action is deprecated and is no longer maintained.');
     core.info(
-      'Please, migrate to https://github.com/ruby/setup-ruby action, which is being actively maintained.'
+      'Please, migrate to https://github.com/ruby/setup-ruby, which is being actively maintained.'
     );
     core.info('------------------------');
 
