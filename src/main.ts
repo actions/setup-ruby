@@ -3,6 +3,13 @@ import * as cache from './cache';
 
 export async function run() {
   try {
+    core.info('------------------------');
+    core.info('NOTE: This action is deprecated and is no longer maintained.');
+    core.info(
+      'Please, migrate to https://github.com/ruby/setup-ruby, which is being actively maintained.'
+    );
+    core.info('------------------------');
+
     let versionSpec = core.getInput('ruby-version', {required: true});
     if (!versionSpec) {
       // deprecated

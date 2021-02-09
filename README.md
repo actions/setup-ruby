@@ -6,6 +6,9 @@
   <a href="https://github.com/actions/setup-ruby/actions"><img alt="versions status" src="https://github.com/actions/setup-ruby/workflows/ruby-versions/badge.svg"></a>  
 </p>
 
+**Please note: This action is deprecated and should no longer be used. The team at GitHub has ceased making and accepting code contributions or maintaining issues tracker. Please, migrate your workflows to the [ruby/setup-ruby](https://github.com/ruby/setup-ruby), which is being actively maintained by the official Ruby organization.**
+
+
 This action sets up a ruby environment for versions which are installed on the [Actions Virtual Environments](https://github.com/actions/virtual-environments).
 
 Virtual environments contain only one Ruby version within a 'major.minor' release, and are updated with new releases.  Hence, a workflow should only be bound to minor versions.
